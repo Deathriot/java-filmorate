@@ -15,13 +15,13 @@ public class User {
     private int id;
     @Email
     @NotNull
-    final private String email;
+    final String email;
     @NotNull
     @NotBlank
     @NotEmpty
-    final private String login;
-    final private String name; // Может быть null
+    final String login;
+    final String name; // Может быть null
     @NotNull
     @Past
-    final private LocalDate birthday;
+    final LocalDate birthday;
 }
