@@ -93,7 +93,7 @@ public class FilmControllerTest {
     }
 
     @Test
-    public void FilmDescriptionShouldBeLessThan200() {
+    public void filmDescriptionShouldBeLessThan200() {
 
         String longDesc = "a".repeat(201);
 
@@ -114,7 +114,7 @@ public class FilmControllerTest {
     }
 
     @Test
-    public void FilmDateShouldBeNotBefore1895_12_28() {
+    public void filmDateShouldBeNotBefore1895_12_28() {
         final Film film1 = Film.builder().name("Test").description("Testing test").duration(200)
                 .releaseDate(LocalDate.of(1895, 12, 27)).build();
 

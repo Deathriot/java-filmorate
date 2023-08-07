@@ -75,7 +75,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void UserShouldNotBirthInFuture() {
+    public void userShouldNotBirthInFuture() {
         User user = User.builder().email("zanin.tima@gmail.com").login("Tima123123")
                 .birthday(LocalDate.of(2222, 5, 2)).build();
 
@@ -84,7 +84,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void UserShouldHaveCorrectEmail() {
+    public void userShouldHaveCorrectEmail() {
         User user1 = User.builder().email("@Zanin.gmail.com").login("Tima123123")
                 .birthday(LocalDate.of(2002, 5, 2)).build();
 
@@ -99,7 +99,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void UserShouldHaveCorrectLogin() {
+    public void userShouldHaveCorrectLogin() {
         User user1 = User.builder().email("zanin.tima@gmail.com")
                 .birthday(LocalDate.of(2002, 5, 2)).build();
 
