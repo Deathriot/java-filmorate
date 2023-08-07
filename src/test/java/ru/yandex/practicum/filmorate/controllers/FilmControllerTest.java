@@ -1,7 +1,6 @@
 package ru.yandex.practicum.filmorate.controllers;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
@@ -20,6 +19,7 @@ import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFOR
 public class FilmControllerTest {
     @Autowired
     private FilmController controller;
+
     @Test
     public void shouldAddValidFilm() {
         Film film = Film.builder().name("Test").description("testing test").duration(100)
@@ -32,7 +32,7 @@ public class FilmControllerTest {
     }
 
     @Test
-    public void shouldUpdateValidFilm(){
+    public void shouldUpdateValidFilm() {
         Film film = Film.builder().name("Test").description("testing test").duration(100)
                 .releaseDate(LocalDate.of(2000, 1, 1)).build();
 
@@ -47,7 +47,7 @@ public class FilmControllerTest {
     }
 
     @Test
-    public void shouldGetFilms(){
+    public void shouldGetFilms() {
         Film film1 = Film.builder().name("Test1").description("testing test1").duration(100)
                 .releaseDate(LocalDate.of(2000, 1, 1)).build();
 
@@ -63,7 +63,7 @@ public class FilmControllerTest {
     }
 
     @Test
-    public void shouldNotAddFilmWithEmptyName(){
+    public void shouldNotAddFilmWithEmptyName() {
         final Film film1 = Film.builder().name("").description("testing test").duration(100)
                 .releaseDate(LocalDate.of(2000, 1, 1)).build();
 
@@ -78,7 +78,7 @@ public class FilmControllerTest {
     }
 
     @Test
-    public void shouldNotAddFilmWithEmptyDescription(){
+    public void shouldNotAddFilmWithEmptyDescription() {
         final Film film1 = Film.builder().name("Test").description("").duration(100)
                 .releaseDate(LocalDate.of(2000, 1, 1)).build();
 
@@ -93,7 +93,7 @@ public class FilmControllerTest {
     }
 
     @Test
-    public void FilmDescriptionShouldBeLessThan200(){
+    public void FilmDescriptionShouldBeLessThan200() {
 
         String longDesc = "a".repeat(201);
 
@@ -105,7 +105,7 @@ public class FilmControllerTest {
     }
 
     @Test
-    public void shouldNotAddFilmWithNegativeDuration(){
+    public void shouldNotAddFilmWithNegativeDuration() {
         final Film film1 = Film.builder().name("Test").description("Testing test").duration(-100)
                 .releaseDate(LocalDate.of(2000, 1, 1)).build();
 
@@ -114,7 +114,7 @@ public class FilmControllerTest {
     }
 
     @Test
-    public void FilmDateShouldBeNotBefore1895_12_28(){
+    public void FilmDateShouldBeNotBefore1895_12_28() {
         final Film film1 = Film.builder().name("Test").description("Testing test").duration(200)
                 .releaseDate(LocalDate.of(1895, 12, 27)).build();
 

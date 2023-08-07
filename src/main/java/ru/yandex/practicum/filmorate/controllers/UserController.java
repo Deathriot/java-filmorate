@@ -7,7 +7,6 @@ import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.validationExceptions.UserValidationException;
 
 import javax.validation.Valid;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,7 +31,7 @@ public class UserController {
         user.setId(nextId);
         nextId++;
 
-        if(user.getName() == null || user.getName().isEmpty()){
+        if (user.getName() == null || user.getName().isEmpty()) {
             user = user.toBuilder().name(user.getLogin()).build();
         }
 
@@ -49,7 +48,7 @@ public class UserController {
             throw new UserValidationException(); //Если пользователя не существует
         }
 
-        if(user.getName() == null || user.getName().isEmpty()){
+        if (user.getName() == null || user.getName().isEmpty()) {
             user = user.toBuilder().name(user.getLogin()).build(); // Если имени нет - оно становится таким же как и логин
         }
 
@@ -63,7 +62,7 @@ public class UserController {
         return new ArrayList<>(users.values());
     }
 
-    public Map<Integer, User> getMapUsers(){
+    public Map<Integer, User> getMapUsers() {
         return users;
     }
 }

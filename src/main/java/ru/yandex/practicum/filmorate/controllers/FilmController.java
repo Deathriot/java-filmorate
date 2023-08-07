@@ -21,10 +21,10 @@ public class FilmController {
     private int nextId = 1;
 
     @PostMapping
-    public Film addFilm(@Valid @RequestBody Film film){
+    public Film addFilm(@Valid @RequestBody Film film) {
         validateFilm(film);
 
-        if(films.containsKey(film.getId())){
+        if (films.containsKey(film.getId())) {
             log.warn("Невозможно добавить фильм : такой фильм уже существует");
             throw new FilmValidationException();
         }
@@ -37,10 +37,10 @@ public class FilmController {
     }
 
     @PutMapping
-    public Film updateFilm(@Valid @RequestBody Film film){
+    public Film updateFilm(@Valid @RequestBody Film film) {
         validateFilm(film);
 
-        if(!films.containsKey(film.getId())){
+        if (!films.containsKey(film.getId())) {
             log.warn("Невозможно обновить фильм : такого фильма не существует");
             throw new FilmValidationException();
         }
@@ -51,20 +51,20 @@ public class FilmController {
     }
 
     @GetMapping
-    public List<Film> getFilms(){
+    public List<Film> getFilms() {
         return new ArrayList<>(films.values());
     }
 
-    private void validateFilm(Film film){
+    private void validateFilm(Film film) {
         // Не умею делать аннотации, придется так
-        if(film.getReleaseDate().isBefore(LocalDate.of(1895, Month.DECEMBER,28))){
+        if (film.getReleaseDate().isBefore(LocalDate.of(1895, Month.DECEMBER, 28))) {
 
             log.warn("Неверно передан фильм!");
             throw new FilmValidationException();
         }
     }
 
-    public Map<Integer,Film> getMapFilms(){
+    public Map<Integer, Film> getMapFilms() {
         return films; // Для тестов
     }
 }

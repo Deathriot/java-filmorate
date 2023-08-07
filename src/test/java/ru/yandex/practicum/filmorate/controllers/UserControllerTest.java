@@ -34,7 +34,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void shouldUpdateUser(){
+    public void shouldUpdateUser() {
         User user = User.builder().email("zanin.tima@gmail.com").name("Tima").login("Tima123123")
                 .birthday(LocalDate.of(2002, 5, 2)).build();
 
@@ -44,12 +44,12 @@ public class UserControllerTest {
 
         controller.updateUser(user);
 
-        assertEquals(controller.getMapUsers().get(1),user);
+        assertEquals(controller.getMapUsers().get(1), user);
         assertEquals(controller.getMapUsers().size(), 1);
     }
 
     @Test
-    public void shouldReturnAllUsers(){
+    public void shouldReturnAllUsers() {
         User user1 = User.builder().email("zanin.tima@gmail.com").name("Tima").login("Tima123123")
                 .birthday(LocalDate.of(2002, 5, 2)).build();
 
@@ -65,7 +65,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void shouldReplaceEmptyNameWithLogin(){
+    public void shouldReplaceEmptyNameWithLogin() {
         User user = User.builder().email("zanin.tima@gmail.com").login("Tima123123")
                 .birthday(LocalDate.of(2002, 5, 2)).build();
 
@@ -75,7 +75,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void UserShouldNotBirthInFuture(){
+    public void UserShouldNotBirthInFuture() {
         User user = User.builder().email("zanin.tima@gmail.com").login("Tima123123")
                 .birthday(LocalDate.of(2222, 5, 2)).build();
 
@@ -84,7 +84,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void UserShouldHaveCorrectEmail(){
+    public void UserShouldHaveCorrectEmail() {
         User user1 = User.builder().email("@Zanin.gmail.com").login("Tima123123")
                 .birthday(LocalDate.of(2002, 5, 2)).build();
 
@@ -99,7 +99,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void UserShouldHaveCorrectLogin(){
+    public void UserShouldHaveCorrectLogin() {
         User user1 = User.builder().email("zanin.tima@gmail.com")
                 .birthday(LocalDate.of(2002, 5, 2)).build();
 

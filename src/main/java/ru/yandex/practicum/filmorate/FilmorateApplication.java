@@ -1,6 +1,5 @@
 package ru.yandex.practicum.filmorate;
 
-import com.sun.net.httpserver.HttpServer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
