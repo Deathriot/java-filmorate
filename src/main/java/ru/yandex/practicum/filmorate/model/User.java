@@ -22,6 +22,6 @@ public class User {
     final String login;
     final String name; // Может быть null
     @NotNull
-    @Past
+    @PastOrPresent
     final LocalDate birthday;
 }

@@ -56,7 +56,6 @@ public class FilmController {
     }
 
     private void validateFilm(Film film) {
-        // Не умею делать аннотации, придется так
         if (film.getReleaseDate().isBefore(LocalDate.of(1895, Month.DECEMBER, 28))) {
 
             log.warn("Неверно передан фильм!");
@@ -65,6 +64,6 @@ public class FilmController {
     }
 
     public Map<Integer, Film> getMapFilms() {
-        return films; // Для тестов
+        return new HashMap<>(films); // Для тестов
     }
 }

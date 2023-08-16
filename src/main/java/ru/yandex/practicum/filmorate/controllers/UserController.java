@@ -63,6 +63,6 @@ public class UserController {
     }
 
     public Map<Integer, User> getMapUsers() {
-        return users;
+        return new HashMap<>(users);
     }
 }
