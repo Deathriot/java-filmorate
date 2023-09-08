@@ -27,8 +27,8 @@ public class FilmControllerTest {
 
         controller.addFilm(film);
 
-        assertEquals(controller.getMapFilms().get(1), film);
-        assertEquals(controller.getMapFilms().size(), 1);
+        assertEquals(controller.getFilms().get(0), film);
+        assertEquals(controller.getFilms().size(), 1);
     }
 
     @Test
@@ -42,8 +42,8 @@ public class FilmControllerTest {
 
         controller.updateFilm(film);
 
-        assertEquals(controller.getMapFilms().get(1), film);
-        assertEquals(controller.getMapFilms().size(), 1);
+        assertEquals(controller.getFilms().get(0), film);
+        assertEquals(controller.getFilms().size(), 1);
     }
 
     @Test

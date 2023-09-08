@@ -29,8 +29,8 @@ public class UserControllerTest {
 
         controller.createUser(user);
 
-        assertEquals(controller.getMapUsers().get(1), user);
-        assertEquals(controller.getMapUsers().size(), 1);
+        assertEquals(controller.getUsers().get(0), user);
+        assertEquals(controller.getUsers().size(), 1);
     }
 
     @Test
@@ -44,8 +44,8 @@ public class UserControllerTest {
 
         controller.updateUser(user);
 
-        assertEquals(controller.getMapUsers().get(1), user);
-        assertEquals(controller.getMapUsers().size(), 1);
+        assertEquals(controller.getUsers().get(0), user);
+        assertEquals(controller.getUsers().size(), 1);
     }
 
     @Test
@@ -71,7 +71,7 @@ public class UserControllerTest {
 
         controller.createUser(user);
 
-        assertEquals(controller.getMapUsers().get(1).getName(), user.getLogin());
+        assertEquals(controller.getUsers().get(0).getName(), user.getLogin());
     }
 
     @Test
