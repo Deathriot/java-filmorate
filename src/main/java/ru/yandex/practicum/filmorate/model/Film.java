@@ -5,7 +5,6 @@ import java.util.Set;
 
 import lombok.Builder;
 import lombok.Data;
-import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.*;
