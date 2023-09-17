@@ -29,14 +29,14 @@ public class ErrorHandler {
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse ValidationHandle(final ConstraintViolationException ex) {
+    public ErrorResponse validationHandle(final ConstraintViolationException ex) {
         //Это исключение кидается при валидации с помощью аннотаций
         return new ErrorResponse("При валидации объекта произошла ошибка");
     }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse IllegalArgumentHandle(final IllegalArgumentException ex) {
+    public ErrorResponse illegalArgumentHandle(final IllegalArgumentException ex) {
         return new ErrorResponse(ex.getMessage());
     }
 
