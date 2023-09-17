@@ -45,6 +45,11 @@ public class FilmService {
             // инициализируем вручную
         }
 
+        if(film.getRate() == null){
+            film = film.toBuilder().rate(0).build();
+            //И это инициализируем
+        }
+
 
         filmStorage.add(film);
 
@@ -62,6 +67,10 @@ public class FilmService {
 
         if(film.getUserLike() == null){
             film = film.toBuilder().userLike(new HashSet<>()).build();
+        }
+
+        if(film.getRate() == null){
+            film = film.toBuilder().rate(0).build();
         }
 
         filmStorage.update(film);
@@ -102,10 +111,11 @@ public class FilmService {
         }
 
         Set<Integer> userLike = film.getUserLike();
+        Integer rate = film.getRate() + 1;
         userLike.add(userId);
 
         film = film.toBuilder()
-                .rate(film.getRate() + 1)
+                .rate(rate)
                 .userLike(userLike)
                 .build();
 

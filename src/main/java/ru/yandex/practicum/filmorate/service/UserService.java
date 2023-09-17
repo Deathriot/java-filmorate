@@ -20,12 +20,10 @@ import java.util.stream.Collectors;
 public class UserService {
 
     private final UserStorage userStorage;
-    private final FilmStorage filmStorage; // Не уверен, что это так делается
 
     @Autowired
     public UserService(UserStorage userStorage, FilmStorage filmStorage) {
         this.userStorage = userStorage;
-        this.filmStorage = filmStorage;
     }
 
     private int nextId = 1;
