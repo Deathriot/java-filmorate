@@ -40,12 +40,12 @@ public class FilmService {
         film.setId(nextId);
         nextId++;
 
-        if(film.getUserLike() == null){
+        if (film.getUserLike() == null) {
             film = film.toBuilder().userLike(new HashSet<>()).build();
             // инициализируем вручную
         }
 
-        if(film.getRate() == null){
+        if (film.getRate() == null) {
             film = film.toBuilder().rate(0).build();
             //И это инициализируем
         }
@@ -65,11 +65,11 @@ public class FilmService {
             throw new FilmNotFoundException("Такой фильм не найден");
         }
 
-        if(film.getUserLike() == null){
+        if (film.getUserLike() == null) {
             film = film.toBuilder().userLike(new HashSet<>()).build();
         }
 
-        if(film.getRate() == null){
+        if (film.getRate() == null) {
             film = film.toBuilder().rate(0).build();
         }
 
@@ -91,22 +91,22 @@ public class FilmService {
         }
     }
 
-    public void putLikeOnFilm(Integer userId, Integer filmId){
-        if(userId < 0){
+    public void putLikeOnFilm(Integer userId, Integer filmId) {
+        if (userId < 0) {
             throw new IllegalArgumentException("айди пользователя не может быть отрицательно");
         }
 
-        if(filmId < 0){
+        if (filmId < 0) {
             throw new IllegalArgumentException("айди фильма не может быть отрицательно");
         }
 
         Film film = filmStorage.get(filmId);
 
-        if (film == null){
+        if (film == null) {
             throw new FilmNotFoundException("Указан неверный id фильма");
         }
 
-        if(film.getUserLike().contains(userId)){
+        if (film.getUserLike().contains(userId)) {
             throw new FilmValidationException("Такой пользователь уже ставил лайк");
         }
 
@@ -122,18 +122,18 @@ public class FilmService {
         filmStorage.update(film);
     }
 
-    public void deleteLikeOnFilm(Integer userId, Integer filmId){
+    public void deleteLikeOnFilm(Integer userId, Integer filmId) {
         Film film = filmStorage.get(filmId);
 
-        if(filmId < 0){
+        if (filmId < 0) {
             throw new IllegalArgumentException("айди фильма не может быть отрицательно");
         }
 
-        if (film == null){
+        if (film == null) {
             throw new FilmNotFoundException("Указан неверный id фильма");
         }
 
-        if(!film.getUserLike().contains(userId)){
+        if (!film.getUserLike().contains(userId)) {
             throw new UserNotFoundException("Такой пользователь не ставил лайк");
         }
 
@@ -148,12 +148,12 @@ public class FilmService {
         filmStorage.update(film);
     }
 
-    public List<Film> getPopularFilms(Integer count){
-        if(count == null){
+    public List<Film> getPopularFilms(Integer count) {
+        if (count == null) {
             count = 10;
         }
 
-        if(count <0){
+        if (count < 0) {
             throw new IllegalArgumentException("Параметр count не может быть отрицательным");
         }
 
@@ -167,12 +167,12 @@ public class FilmService {
         return popularFilms;
     }
 
-    public Film getFilm(int id){
-        if(id < 0){
+    public Film getFilm(int id) {
+        if (id < 0) {
             throw new IllegalArgumentException("айди фильма не может быть отрицательно");
         }
 
-        if(filmStorage.get(id) == null){
+        if (filmStorage.get(id) == null) {
             throw new FilmNotFoundException("Фильма с таким id не существует");
         }
         return filmStorage.get(id);
