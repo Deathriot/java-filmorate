@@ -132,15 +132,15 @@ public class FilmControllerTest {
     }
 
     @Test
-    public void shouldCorrectlyPutLike(){
+    public void shouldCorrectlyPutLike() {
         createFilms();
 
-        controller.putLike(1,3);
-        controller.putLike(1,2);
-        controller.putLike(1,4);
-        controller.putLike(2,2);
+        controller.putLike(1, 3);
+        controller.putLike(1, 2);
+        controller.putLike(1, 4);
+        controller.putLike(2, 2);
 
-        assertEquals(controller.getFilm(1).getUserLike(), Set.of(3,2,4));
+        assertEquals(controller.getFilm(1).getUserLike(), Set.of(3, 2, 4));
         assertEquals(controller.getFilm(1).getRate(), 3);
 
         assertEquals(controller.getFilm(2).getUserLike(), Set.of(2));
@@ -151,77 +151,77 @@ public class FilmControllerTest {
     }
 
     @Test
-    public void shouldNotPutLikeOnNotExistingFilm(){
+    public void shouldNotPutLikeOnNotExistingFilm() {
         createFilms();
 
         assertThrows(FilmNotFoundException.class,
-                () -> controller.putLike(10,1));
+                () -> controller.putLike(10, 1));
     }
 
     @Test
-    public void sameUserShouldNotPutLikeOnSameFilmTwice(){
+    public void sameUserShouldNotPutLikeOnSameFilmTwice() {
         createFilms();
 
-        controller.putLike(1,1);
+        controller.putLike(1, 1);
 
         assertThrows(FilmValidationException.class,
-                () -> controller.putLike(1,1));
+                () -> controller.putLike(1, 1));
     }
 
     @Test
-    public void shouldDeleteLikeCorrectly(){
+    public void shouldDeleteLikeCorrectly() {
         createFilms();
 
-        controller.putLike(1,1);
-        controller.putLike(1,2);
+        controller.putLike(1, 1);
+        controller.putLike(1, 2);
 
-        controller.deleteLike(1,1);
+        controller.deleteLike(1, 1);
 
         assertEquals(controller.getFilm(1).getUserLike(), Set.of(2));
         assertEquals(controller.getFilm(1).getRate(), 1);
     }
 
     @Test
-    public void shouldNotDeleteLikeOnNotExistingFilm(){
+    public void shouldNotDeleteLikeOnNotExistingFilm() {
         createFilms();
 
-        controller.putLike(1,1);
-        controller.putLike(1,2);
+        controller.putLike(1, 1);
+        controller.putLike(1, 2);
 
         assertThrows(FilmNotFoundException.class,
-                () -> controller.deleteLike(5,1));
+                () -> controller.deleteLike(5, 1));
     }
 
     @Test
-    public void shouldNotDeleteNotExistingLike(){
+    public void shouldNotDeleteNotExistingLike() {
         createFilms();
 
-        controller.putLike(1,1);
-        controller.putLike(1,2);
+        controller.putLike(1, 1);
+        controller.putLike(1, 2);
 
         assertThrows(UserNotFoundException.class,
-                () -> controller.deleteLike(1,4));
+                () -> controller.deleteLike(1, 4));
     }
 
     @Test
-    public void shouldGetPopularFilmsCorrectly(){
+    public void shouldGetPopularFilmsCorrectly() {
         createFilms();
 
-        controller.putLike(3,1);
-        controller.putLike(3,2);
-        controller.putLike(3,3);
-        controller.putLike(3,4);
+        controller.putLike(3, 1);
+        controller.putLike(3, 2);
+        controller.putLike(3, 3);
+        controller.putLike(3, 4);
 
-        controller.putLike(1,1);
-        controller.putLike(1,2);
+        controller.putLike(1, 1);
+        controller.putLike(1, 2);
 
-        List<Film> popularFilms = List.of(controller.getFilm(3), controller.getFilm(1)
-                ,controller.getFilm(2));
+        List<Film> popularFilms = List.of(controller.getFilm(3), controller.getFilm(1),
+                controller.getFilm(2));
 
         assertEquals(controller.getPopularFilms(3), popularFilms);
     }
 
-    private void createFilms(){
+    private void createFilms() {
         final Film film1 = Film.builder().name("Gachi Muchi").description("Movie about men friendship").duration(140)
                 .releaseDate(LocalDate.of(2007, 1, 1)).build();
 
