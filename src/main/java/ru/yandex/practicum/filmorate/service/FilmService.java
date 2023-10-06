@@ -3,14 +3,12 @@ package ru.yandex.practicum.filmorate.service;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.storage.FilmStorage;
 import ru.yandex.practicum.filmorate.validationExceptions.FilmNotFoundException;
 import ru.yandex.practicum.filmorate.validationExceptions.FilmValidationException;
 import ru.yandex.practicum.filmorate.validationExceptions.UserNotFoundException;
 
-import javax.validation.Valid;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.*;
@@ -18,7 +16,6 @@ import java.util.stream.Collectors;
 
 @Service
 @Slf4j
-@Validated
 public class FilmService {
 
     private int nextId = 1;
@@ -29,7 +26,7 @@ public class FilmService {
         this.filmStorage = filmStorage;
     }
 
-    public Film addFilm(@Valid Film film) {
+    public Film addFilm(Film film) {
         validateFilm(film);
 
         if (filmStorage.get(film.getId()) != null) {
@@ -57,7 +54,7 @@ public class FilmService {
         return film;
     }
 
-    public Film updateFilm(@Valid Film film) {
+    public Film updateFilm(Film film) {
         validateFilm(film);
 
         if (filmStorage.get(film.getId()) == null) {
@@ -148,23 +145,13 @@ public class FilmService {
         filmStorage.update(film);
     }
 
-    public List<Film> getPopularFilms(Integer count) {
-        if (count == null) {
-            count = 10;
-        }
+    public List<Film> getPopularFilms(int count) {
 
         if (count < 0) {
             throw new IllegalArgumentException("Параметр count не может быть отрицательным");
         }
 
-        List<Film> popularFilms = filmStorage.getAll()
-                .stream()
-                .sorted(Comparator.comparing(Film::getRate,
-                        Comparator.nullsLast(Comparator.reverseOrder())))
-                .limit(count)
-                .collect(Collectors.toList());
-
-        return popularFilms;
+        return filmStorage.getPopularFilms(count);
     }
 
     public Film getFilm(int id) {
@@ -172,9 +159,11 @@ public class FilmService {
             throw new IllegalArgumentException("айди фильма не может быть отрицательно");
         }
 
-        if (filmStorage.get(id) == null) {
+        Film film = filmStorage.get(id);
+
+        if (film == null) {
             throw new FilmNotFoundException("Фильма с таким id не существует");
         }
-        return filmStorage.get(id);
+        return film;
     }
 }

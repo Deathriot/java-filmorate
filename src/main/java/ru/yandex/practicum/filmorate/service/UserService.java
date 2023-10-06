@@ -3,32 +3,29 @@ package ru.yandex.practicum.filmorate.service;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.storage.FilmStorage;
 import ru.yandex.practicum.filmorate.storage.UserStorage;
 import ru.yandex.practicum.filmorate.validationExceptions.UserNotFoundException;
 import ru.yandex.practicum.filmorate.validationExceptions.UserValidationException;
 
-import javax.validation.Valid;
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
 @Slf4j
-@Validated
 public class UserService {
 
     private final UserStorage userStorage;
 
     @Autowired
-    public UserService(UserStorage userStorage, FilmStorage filmStorage) {
+    public UserService(UserStorage userStorage) {
         this.userStorage = userStorage;
     }
 
     private int nextId = 1;
 
-    public User create(@Valid User user) {
+    public User create(User user) {
 
         if (userStorage.get(user.getId()) != null) {
             log.warn("Невозможно добавить пользователя : такой пользователь уже существует");
@@ -53,7 +50,7 @@ public class UserService {
         return user;
     }
 
-    public User update(@Valid User user) {
+    public User update(User user) {
 
         if (userStorage.get(user.getId()) == null) {
             log.warn("Невозможно обновить пользователя : такого пользователя не существует!");
