@@ -1,6 +1,7 @@
 package ru.yandex.practicum.filmorate.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.Builder;
 import org.springframework.validation.annotation.Validated;
@@ -17,18 +18,18 @@ public class User {
 
     @Email
     @NotNull
-    final String email;
+    private final String email;
 
-    @NotNull
     @NotBlank
     @NotEmpty
-    final String login;
+    private final String login;
 
-    final String name; // Может быть null
+    private final String name; // Может быть null
 
     @NotNull
     @PastOrPresent
-    final LocalDate birthday;
+    private final LocalDate birthday;
 
-    final Set<Integer> friends;
+    @JsonIgnore
+    private final Set<Integer> friends;
 }

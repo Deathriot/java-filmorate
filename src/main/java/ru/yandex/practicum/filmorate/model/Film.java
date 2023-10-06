@@ -3,6 +3,7 @@ package ru.yandex.practicum.filmorate.model;
 import java.time.LocalDate;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.validation.annotation.Validated;
@@ -15,23 +16,22 @@ import javax.validation.constraints.*;
 public class Film {
     private int id;
 
-    @NotNull
     @NotEmpty
-    final String name;
+    private final String name;
 
-    @NotNull
     @NotEmpty
     @Size(max = 200)
-    final String description;
+    private final String description;
 
     @NotNull
-    final LocalDate releaseDate;
+    private final LocalDate releaseDate;
 
     @Positive
-    final int duration;
+    private final int duration;
 
     @PositiveOrZero
-    final Integer rate;
+    private final Integer rate;
 
-    Set<Integer> userLike;
+    @JsonIgnore
+    private final Set<Integer> userLike;
 }
