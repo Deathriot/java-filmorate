@@ -12,7 +12,6 @@ import ru.yandex.practicum.filmorate.validationExceptions.UserNotFoundException;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 @Slf4j

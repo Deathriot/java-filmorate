@@ -30,7 +30,7 @@ public class InMemoryFilmStorage implements FilmStorage {
         return films.get(id);
     }
 
-    public List<Film> getPopularFilms(int count){
+    public List<Film> getPopularFilms(int count) {
         List<Film> popularFilms = getAll()
                 .stream()
                 .sorted(Comparator.comparing(Film::getRate,
