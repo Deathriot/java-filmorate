@@ -21,7 +21,6 @@ public class User {
     private final String email;
 
     @NotBlank
-    @NotEmpty
     private final String login;
 
     private final String name; // Может быть null
