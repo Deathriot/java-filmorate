@@ -8,6 +8,6 @@ public class FilmorateApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(FilmorateApplication.class, args);
-		//Порт - 8081 !!!
+		//Порт - 8080 !!!
 	}
 }
