@@ -1,3 +1,4 @@
-![data_base](https://github.com/Deathriot/java-filmorate/assets/127441142/d2b3dec7-076b-4e55-bf5a-59d3a4e25098)
+![data_base](https://github.com/Deathriot/java-filmorate/assets/127441142/40469bb2-37a6-4ecc-8286-f721391cbac6)
+
 
 # ER - диаграмма java-filmorate
