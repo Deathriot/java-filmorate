@@ -34,4 +34,7 @@ public class Film {
 
     @JsonIgnore
     private final Set<Integer> userLike;
+
+    @JsonIgnore
+    private final Set<FilmGenre> genres;
 }
