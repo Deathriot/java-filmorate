@@ -37,25 +37,21 @@ public class InMemoryUserStorage implements UserStorage {
     // Данная имплементация более не используется, времени мало, давайте потом ее сделаю:)
 
     @Override
-    @Deprecated
     public List<User> getFriends(int id) {
         return null;
     }
 
     @Override
-    @Deprecated
     public void addFriend(int userId, int friendId) {
 
     }
 
     @Override
-    @Deprecated
     public void deleteFriend(int userId, int friendId) {
 
     }
 
     @Override
-    @Deprecated
     public List<User> getCommonFriends(int userId, int friendId) {
         return null;
     }

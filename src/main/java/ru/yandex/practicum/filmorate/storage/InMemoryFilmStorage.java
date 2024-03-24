@@ -44,13 +44,11 @@ public class InMemoryFilmStorage implements FilmStorage {
 
     // Данная имплементация более не используется, времени мало, давайте потом ее сделаю:)
     @Override
-    @Deprecated
     public void deleteLikeOnFilm(int filmId, int userId) {
 
     }
 
     @Override
-    @Deprecated
     public void putLikeOnFilm(int filmId, int userId) {
 
     }
