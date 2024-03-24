@@ -27,7 +27,7 @@ public class DataBaseGenreStorage implements GenreStorage {
     public List<FilmGenre> getAllGenre() {
         String sqlQuery = "SELECT * FROM genre";
 
-        return jdbcTemplate.query(sqlQuery, (rs, rowNum) -> CreateGenre(rs));
+        return jdbcTemplate.query(sqlQuery, (rs, rowNum) -> сreateGenre(rs));
     }
 
     @Override
@@ -45,7 +45,7 @@ public class DataBaseGenreStorage implements GenreStorage {
         }
     }
 
-    private FilmGenre CreateGenre(ResultSet rs) throws SQLException {
+    private FilmGenre сreateGenre(ResultSet rs) throws SQLException {
         return FilmGenre.builder()
                 .id(rs.getInt("genre_id"))
                 .name(rs.getString("name"))
