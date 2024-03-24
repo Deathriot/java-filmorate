@@ -11,13 +11,15 @@ public class InMemoryFilmStorage implements FilmStorage {
     private final Map<Integer, Film> films = new HashMap<>();
 
     @Override
-    public void add(Film film) {
+    public Film add(Film film) {
         films.put(film.getId(), film);
+        return film;
     }
 
     @Override
-    public void update(Film film) {
+    public Film update(Film film) {
         films.put(film.getId(), film);
+        return film;
     }
 
     @Override
@@ -31,13 +33,26 @@ public class InMemoryFilmStorage implements FilmStorage {
     }
 
     public List<Film> getPopularFilms(int count) {
-        List<Film> popularFilms = getAll()
+
+        return getAll()
                 .stream()
                 .sorted(Comparator.comparing(Film::getRate,
                         Comparator.nullsLast(Comparator.reverseOrder())))
                 .limit(count)
                 .collect(Collectors.toList());
-
-        return popularFilms;
     }
+
+    // Данная имплементация более не используется, времени мало, давайте потом ее сделаю:)
+    @Override
+    @Deprecated
+    public void deleteLikeOnFilm(int filmId, int userId) {
+
+    }
+
+    @Override
+    @Deprecated
+    public void putLikeOnFilm(int filmId, int userId) {
+
+    }
+
 }

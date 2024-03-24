@@ -11,6 +11,7 @@ import ru.yandex.practicum.filmorate.validationExceptions.UserNotFoundException;
 import ru.yandex.practicum.filmorate.validationExceptions.UserValidationException;
 
 import javax.validation.ConstraintViolationException;
+import java.util.NoSuchElementException;
 
 @RestControllerAdvice("ru.yandex.practicum.filmorate")
 public class ErrorHandler {
@@ -31,7 +32,7 @@ public class ErrorHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse validationHandle(final ConstraintViolationException ex) {
         //Это исключение кидается при валидации с помощью аннотаций
-        return new ErrorResponse("При валидации объекта произошла ошибка");
+        return new ErrorResponse("При валидации объекта произошла ошибка: " + ex.getMessage());
     }
 
     @ExceptionHandler
@@ -49,6 +50,12 @@ public class ErrorHandler {
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorResponse filmNotFoundHandle(final FilmNotFoundException ex) {
+        return new ErrorResponse(ex.getMessage());
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorResponse elementNotFoundHandle(final NoSuchElementException ex) {
         return new ErrorResponse(ex.getMessage());
     }
 

@@ -13,13 +13,15 @@ public class InMemoryUserStorage implements UserStorage {
     private final Map<Integer, User> users = new HashMap<>();
 
     @Override
-    public void create(User user) {
+    public User create(User user) {
         users.put(user.getId(), user);
+        return user;
     }
 
     @Override
-    public void update(User user) {
+    public User update(User user) {
         users.put(user.getId(), user);
+        return user;
     }
 
     @Override
@@ -30,5 +32,31 @@ public class InMemoryUserStorage implements UserStorage {
     @Override
     public User get(int id) {
         return users.get(id);
+    }
+
+    // Данная имплементация более не используется, времени мало, давайте потом ее сделаю:)
+
+    @Override
+    @Deprecated
+    public List<User> getFriends(int id) {
+        return null;
+    }
+
+    @Override
+    @Deprecated
+    public void addFriend(int userId, int friendId) {
+
+    }
+
+    @Override
+    @Deprecated
+    public void deleteFriend(int userId, int friendId) {
+
+    }
+
+    @Override
+    @Deprecated
+    public List<User> getCommonFriends(int userId, int friendId) {
+        return null;
     }
 }

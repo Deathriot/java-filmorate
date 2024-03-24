@@ -15,7 +15,6 @@ import javax.validation.constraints.*;
 @Validated
 public class Film {
     private int id;
-
     @NotEmpty
     private final String name;
 
@@ -35,6 +34,7 @@ public class Film {
     @JsonIgnore
     private final Set<Integer> userLike;
 
-    @JsonIgnore
     private final Set<FilmGenre> genres;
+    @NotNull
+    private final MPA mpa;
 }
