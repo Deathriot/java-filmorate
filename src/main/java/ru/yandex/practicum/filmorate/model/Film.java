@@ -3,7 +3,6 @@ package ru.yandex.practicum.filmorate.model;
 import java.time.LocalDate;
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.validation.annotation.Validated;
@@ -30,9 +29,6 @@ public class Film {
 
     @PositiveOrZero
     private final Integer rate;
-
-    @JsonIgnore
-    private final Set<Integer> userLike;
 
     private final Set<FilmGenre> genres;
     @NotNull

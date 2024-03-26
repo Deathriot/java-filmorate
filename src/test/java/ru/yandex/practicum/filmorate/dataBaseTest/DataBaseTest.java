@@ -19,7 +19,6 @@ import ru.yandex.practicum.filmorate.storage.MPAStorage;
 import ru.yandex.practicum.filmorate.storage.UserStorage;
 
 import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -263,9 +262,7 @@ public class DataBaseTest {
         filmService.putLikeOnFilm(firstFilm.getId(), firstUser.getId());
         firstFilm = filmStorage.get(firstFilm.getId());
 
-        Set<Integer> like = firstFilm.getUserLike();
-
-        assertThat(like).isEqualTo(Set.of(1));
+        assertThat(firstFilm.getRate()).isEqualTo(1);
     }
 
     @Test
@@ -277,9 +274,7 @@ public class DataBaseTest {
         filmService.deleteLikeOnFilm(secondFilm.getId(), secondUser.getId());
         secondFilm = filmStorage.get(secondFilm.getId());
 
-        Set<Integer> like = secondFilm.getUserLike();
-
-        assertThat(like).isEqualTo(new HashSet<>());
+        assertThat(secondFilm.getRate()).isEqualTo(0);
     }
 
     @Test

@@ -1,6 +1,5 @@
 package ru.yandex.practicum.filmorate.storage.db;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -18,7 +17,6 @@ import java.util.*;
 
 @Component
 @Primary
-@Slf4j
 public class DataBaseFilmStorage implements FilmStorage {
     private final JdbcTemplate jdbcTemplate;
 
@@ -73,11 +71,9 @@ public class DataBaseFilmStorage implements FilmStorage {
 
         String sqlFilm = "SELECT * FROM films WHERE film_id = ?";
         String sqlGenre = "SELECT genre_id FROM films_genre WHERE film_id = ?";
-        String sqlUsersLike = "SELECT * FROM users_like WHERE film_id = ?";
 
         List<FilmGenre> genresFilm =
                 jdbcTemplate.query(sqlGenre, (rs, rowNum) -> getGenre(rs.getInt("genre_id")), id);
-        List<Integer> usersLike = jdbcTemplate.query(sqlUsersLike, (rs, rowNum) -> rs.getInt("user_id"), id);
         SqlRowSet sqlQuery = jdbcTemplate.queryForRowSet(sqlFilm, id);
 
         Film film = null;
@@ -96,11 +92,9 @@ public class DataBaseFilmStorage implements FilmStorage {
                     .releaseDate(Objects.requireNonNull(sqlQuery.getDate("release_date")).toLocalDate())
                     .mpa(getMPA(sqlQuery.getInt("mpa_id")))
                     .genres(sortedGenres)
-                    .userLike(new HashSet<>(usersLike))
                     .build();
         }
 
-        log.info("get Film id = " + id);
         return film;
     }
 
@@ -108,11 +102,8 @@ public class DataBaseFilmStorage implements FilmStorage {
     public List<Film> getPopularFilms(int count) {
         String sqlQuery = "SELECT * FROM films ORDER BY rate DESC LIMIT ?;";
 
-        List<Film> popularFilms = jdbcTemplate.query(sqlQuery, (rs, rowNum) -> get(rs.getInt("film_id")),
+        return jdbcTemplate.query(sqlQuery, (rs, rowNum) -> get(rs.getInt("film_id")),
                 count);
-        popularFilms.sort(Comparator.comparingInt(Film::getRate).reversed());
-
-        return popularFilms;
     }
 
     @Override
