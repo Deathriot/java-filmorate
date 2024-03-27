@@ -107,9 +107,9 @@ public class DataBaseUserStorage implements UserStorage {
         if (!isFriends(userId, friendId)) {
             String sql = "DELETE FROM user_friends WHERE user_id = ? AND friend_id = ?";
             jdbcTemplate.update(sql, userId, friendId);
-        } else {
-            throw new UserNotFoundException("Данный пользователь не ваш друг");
         }
+
+        // Новые тесты постаман не хотят получать 404 ошибку, если идет удаление друга, которого нет
     }
 
     @Override
