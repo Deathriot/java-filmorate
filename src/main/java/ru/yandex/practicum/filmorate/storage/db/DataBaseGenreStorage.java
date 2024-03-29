@@ -1,7 +1,6 @@
 package ru.yandex.practicum.filmorate.storage.db;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
@@ -13,7 +12,6 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-@Primary
 @Component
 public class DataBaseGenreStorage implements GenreStorage {
     private final JdbcTemplate jdbcTemplate;

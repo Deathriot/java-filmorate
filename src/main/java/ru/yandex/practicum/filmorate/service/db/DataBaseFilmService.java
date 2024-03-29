@@ -1,7 +1,6 @@
 package ru.yandex.practicum.filmorate.service.db;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.service.FilmService;
@@ -9,7 +8,6 @@ import ru.yandex.practicum.filmorate.storage.FilmStorage;
 
 import java.util.List;
 
-@Primary
 @Service
 public class DataBaseFilmService implements FilmService {
     private final FilmStorage filmStorage;

@@ -1,7 +1,6 @@
 package ru.yandex.practicum.filmorate.service.db;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.service.UserService;
@@ -10,7 +9,6 @@ import ru.yandex.practicum.filmorate.storage.UserStorage;
 import java.util.List;
 
 @Service
-@Primary
 public class DataBaseUserService implements UserService {
     private final UserStorage storage;
 

@@ -1,7 +1,6 @@
 package ru.yandex.practicum.filmorate.storage.db;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -13,10 +12,11 @@ import ru.yandex.practicum.filmorate.storage.FilmStorage;
 import ru.yandex.practicum.filmorate.validationExceptions.FilmNotFoundException;
 import ru.yandex.practicum.filmorate.validationExceptions.UserNotFoundException;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.*;
 
 @Component
-@Primary
 public class DataBaseFilmStorage implements FilmStorage {
     private final JdbcTemplate jdbcTemplate;
 
@@ -27,9 +27,9 @@ public class DataBaseFilmStorage implements FilmStorage {
 
     @Override
     public List<Film> getAll() {
-        String request = "SELECT film_id FROM films ORDER BY film_id";
+        String sql = "SELECT f.*, mpa.title FROM films AS f JOIN mpa ON f.mpa_id=mpa.mpa_id";
 
-        return jdbcTemplate.query(request, (resSet, num) -> get(resSet.getInt("film_id")));
+        return jdbcTemplate.query(sql, this::buildFilm);
     }
 
     @Override
@@ -198,5 +198,27 @@ public class DataBaseFilmStorage implements FilmStorage {
             String sqlFilmGenres = "MERGE INTO films_genre (film_id, genre_id) VALUES (?, ?)";
             jdbcTemplate.update(sqlFilmGenres, filmId, genre.getId());
         }
+    }
+
+    private Film buildFilm(ResultSet rs, int num) throws SQLException {
+        Film film;
+
+        String sqlGenre = "SELECT genre_id FROM films_genre WHERE film_id = ?";
+        List<FilmGenre> genresFilm =
+                jdbcTemplate.query(sqlGenre, (resSet, rowNum) ->
+                        getGenre(resSet.getInt("genre_id")), rs.getInt("film_id"));
+
+        film = Film.builder()
+                .id(rs.getInt("film_id"))
+                .name(rs.getString("name"))
+                .rate(rs.getInt("rate"))
+                .description(rs.getString("description"))
+                .duration(rs.getInt("duration"))
+                .releaseDate(Objects.requireNonNull(rs.getDate("release_date")).toLocalDate())
+                .mpa(MPA.builder().id(rs.getInt("mpa_id")).name(rs.getString("title")).build())
+                .genres(new HashSet<>(genresFilm))
+                .build();
+
+        return film;
     }
 }

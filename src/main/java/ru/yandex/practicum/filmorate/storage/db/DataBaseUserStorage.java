@@ -1,7 +1,6 @@
 package ru.yandex.practicum.filmorate.storage.db;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -12,7 +11,6 @@ import ru.yandex.practicum.filmorate.validationExceptions.UserNotFoundException;
 
 import java.util.*;
 
-@Primary
 @Component
 public class DataBaseUserStorage implements UserStorage {
     private final JdbcTemplate jdbcTemplate;
