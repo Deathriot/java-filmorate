@@ -258,12 +258,13 @@ public class DataBaseTest {
     @Test
     public void getAllFilmsTest() {
         filmStorage.add(firstFilm);
+        filmStorage.add(secondFilm);
 
         List<Film> films = filmStorage.getAll();
 
         firstFilm = filmStorage.get(1);
 
-        assertThat(films).asList().hasSize(1);
+        assertThat(films).asList().hasSize(2);
         assertThat(films).asList().contains(firstFilm);
     }
 

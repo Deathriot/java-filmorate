@@ -214,7 +214,13 @@ public class DataBaseFilmStorage implements FilmStorage {
         Film film;
 
         int filmId = rs.getInt("film_id");
-        Set<FilmGenre> genresFilm = filmsGenre.get(filmId);
+        Set<FilmGenre> genresFilm;
+
+        if (filmsGenre.get(filmId) == null) {
+            genresFilm = new HashSet<>();
+        } else {
+            genresFilm = filmsGenre.get(filmId);
+        }
 
         film = Film.builder()
                 .id(filmId)
