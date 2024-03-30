@@ -231,13 +231,13 @@ public class DataBaseFilmStorage implements FilmStorage {
     }
 
     // Лямбда хочет непременно что-то возвращать, давайте закроем глаза?
-    private Integer fillFilmsGenre(ResultSet rs, int num) throws SQLException{
+    private Integer fillFilmsGenre(ResultSet rs, int num) throws SQLException {
         FilmGenre genre =
                 FilmGenre.builder().id(rs.getInt("genre_id")).name(rs.getString("name")).build();
 
         int filmId = rs.getInt("film_id");
 
-        if(filmsGenre.get(filmId) == null){
+        if (filmsGenre.get(filmId) == null) {
             filmsGenre.put(filmId, new HashSet<>(Set.of(genre)));
         } else {
             Set<FilmGenre> genres = filmsGenre.get(filmId);
