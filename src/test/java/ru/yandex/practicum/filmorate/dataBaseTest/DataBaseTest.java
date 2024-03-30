@@ -256,7 +256,7 @@ public class DataBaseTest {
     }
 
     @Test
-    public void getAllFilmsTest(){
+    public void getAllFilmsTest() {
         filmStorage.add(firstFilm);
 
         List<Film> films = filmStorage.getAll();
