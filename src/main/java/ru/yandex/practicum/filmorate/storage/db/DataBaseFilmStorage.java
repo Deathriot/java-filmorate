@@ -20,16 +20,26 @@ import java.util.*;
 public class DataBaseFilmStorage implements FilmStorage {
     private final JdbcTemplate jdbcTemplate;
 
+    // Используется как буффер, для простоты
+    private final Map<Integer, Set<FilmGenre>> filmsGenre;
+
     @Autowired
     public DataBaseFilmStorage(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
+        filmsGenre = new HashMap<>();
     }
 
     @Override
     public List<Film> getAll() {
         String sql = "SELECT f.*, mpa.title FROM films AS f JOIN mpa ON f.mpa_id=mpa.mpa_id";
+        String sqlAllGenres =
+                "SELECT g.*, fg.film_id FROM genre AS g JOIN films_genre AS fg ON g.genre_id = fg.genre_id ";
 
-        return jdbcTemplate.query(sql, this::buildFilm);
+        jdbcTemplate.query(sqlAllGenres, this::fillFilmsGenre);
+        List<Film> films = jdbcTemplate.query(sql, this::buildFilm);
+        filmsGenre.clear();
+
+        return films;
     }
 
     @Override
@@ -203,13 +213,11 @@ public class DataBaseFilmStorage implements FilmStorage {
     private Film buildFilm(ResultSet rs, int num) throws SQLException {
         Film film;
 
-        String sqlGenre = "SELECT genre_id FROM films_genre WHERE film_id = ?";
-        List<FilmGenre> genresFilm =
-                jdbcTemplate.query(sqlGenre, (resSet, rowNum) ->
-                        getGenre(resSet.getInt("genre_id")), rs.getInt("film_id"));
+        int filmId = rs.getInt("film_id");
+        Set<FilmGenre> genresFilm = filmsGenre.get(filmId);
 
         film = Film.builder()
-                .id(rs.getInt("film_id"))
+                .id(filmId)
                 .name(rs.getString("name"))
                 .rate(rs.getInt("rate"))
                 .description(rs.getString("description"))
@@ -220,5 +228,23 @@ public class DataBaseFilmStorage implements FilmStorage {
                 .build();
 
         return film;
+    }
+
+    // Лямбда хочет непременно что-то возвращать, давайте закроем глаза?
+    private Integer fillFilmsGenre(ResultSet rs, int num) throws SQLException{
+        FilmGenre genre =
+                FilmGenre.builder().id(rs.getInt("genre_id")).name(rs.getString("name")).build();
+
+        int filmId = rs.getInt("film_id");
+
+        if(filmsGenre.get(filmId) == null){
+            filmsGenre.put(filmId, new HashSet<>(Set.of(genre)));
+        } else {
+            Set<FilmGenre> genres = filmsGenre.get(filmId);
+            genres.add(genre);
+            filmsGenre.put(filmId, genres);
+        }
+
+        return 1;
     }
 }

@@ -99,6 +99,7 @@ public class DataBaseTest {
                 .releaseDate(LocalDate.of(2020, 7, 15))
                 .mpa(MPA.builder()
                         .id(1)
+                        .name("G")
                         .build())
                 .build();
         thirdFilm = Film.builder()
@@ -252,6 +253,18 @@ public class DataBaseTest {
         List<Film> listFilms = filmStorage.getAll();
 
         assertThat(listFilms).asList().isEmpty();
+    }
+
+    @Test
+    public void getAllFilmsTest(){
+        filmStorage.add(firstFilm);
+
+        List<Film> films = filmStorage.getAll();
+
+        firstFilm = filmStorage.get(1);
+
+        assertThat(films).asList().hasSize(1);
+        assertThat(films).asList().contains(firstFilm);
     }
 
     @Test
